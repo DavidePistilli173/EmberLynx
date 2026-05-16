@@ -1,1 +1,1 @@
-find ./src -iname '*.cpp' -o -iname '*.hpp' | xargs clang-format
+find ./src/ember_lynx ./src/examples \( -path '*/deps/*' -prune \) -o \( \( -iname '*.cpp' -o -iname '*.hpp' \) -print \) | xargs clang-format -i

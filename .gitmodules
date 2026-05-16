@@ -1,0 +1,6 @@
+[submodule "src/ember_lynx/deps/glfw"]
+	path = src/ember_lynx/deps/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "src/ember_lynx/deps/bgfx.cmake"]
+	path = src/ember_lynx/deps/bgfx.cmake
+	url = https://github.com/bkaradzic/bgfx.cmake.git
