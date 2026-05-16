@@ -29,6 +29,7 @@ A modular, modern C++23 game engine using glfw and bgfx.
     - Prefer return values (e.g., std::optional, std::expected) instead of exceptions.
     - Header guards use #ifndef/#define
     - Avoid macros as much as possible.
+    - Do not use int, short etc, always use int32_t, int16_t etc.
 
 ### Naming Conventions
 
