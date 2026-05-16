@@ -19,7 +19,7 @@ A modular, modern C++23 game engine using glfw and bgfx.
 ## Language & Coding Standards
 
     - Use clean, idiomatic C++23.
-    - Use Doxygen style for all comments.
+    - Use Doxygen style for all comments (like /***/ and @brief).
     - Engine root namespace: elx
     - All engine namespaces must be nested under elx
     - Each application must have its own distinct namespace, never elx

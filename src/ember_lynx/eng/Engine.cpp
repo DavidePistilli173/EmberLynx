@@ -1,8 +1,8 @@
-#include "ember_lynx/engine/Engine.hpp"
+#include "ember_lynx/eng/Engine.hpp"
 
 #include <cassert>
 
-namespace elx::engine {
+namespace elx::eng {
 
     std::unique_ptr<Engine> Engine::s_instance_{ nullptr };
 
@@ -43,4 +43,4 @@ namespace elx::engine {
         return window_;
     }
 
-} // namespace elx::engine
+} // namespace elx::eng
