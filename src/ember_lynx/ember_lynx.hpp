@@ -10,4 +10,4 @@ namespace elx {
     [[nodiscard]] eng::Engine& engine();
 } // namespace elx
 
-#endif
+#endif // ELX_EMBER_LYNX_HPP

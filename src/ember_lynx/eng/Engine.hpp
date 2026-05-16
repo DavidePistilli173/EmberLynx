@@ -2,6 +2,7 @@
 #define ELX_ENG_ENGINE_HPP
 
 #include "ember_lynx/ui/Window.hpp"
+#include "ember_lynx/util/Logger.hpp"
 
 #include <expected>
 #include <memory>
@@ -20,7 +21,8 @@ namespace elx::eng {
      public:
         /** @brief Top-level initialisation parameters. */
         struct Config {
-            elx::ui::Window::Config window{};
+            elx::ui::Window::Config   window{};
+            elx::util::Logger::Config logger{};
         };
 
         Engine(Engine const&)            = delete;

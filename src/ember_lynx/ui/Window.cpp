@@ -1,5 +1,7 @@
 #include "ember_lynx/ui/Window.hpp"
 
+#include "ember_lynx/ember_lynx.hpp"
+
 #include <GLFW/glfw3.h>
 #include <atomic>
 #include <cstdlib>
@@ -63,8 +65,11 @@ namespace elx::ui {
     }
 
     std::expected<Window, std::string> Window::create(Config const& config) noexcept {
+        elx::trace("Creating window '{}' ({}x{})", config.title, config.width, config.height);
+
         if (!glfw_acquire()) {
             s_glfw_ref_count.fetch_sub(1, std::memory_order_acq_rel);
+            elx::err("Failed to initialise GLFW");
             return std::unexpected{ "Failed to initialise GLFW" };
         }
 
@@ -72,9 +77,11 @@ namespace elx::ui {
 
         if (handle == nullptr) {
             glfw_release();
+            elx::err("Failed to create window '{}'", config.title);
             return std::unexpected{ std::format("Failed to create window '{}'", config.title) };
         }
 
+        elx::info("Window '{}' created ({}x{})", config.title, config.width, config.height);
         return Window{ handle };
     }
 

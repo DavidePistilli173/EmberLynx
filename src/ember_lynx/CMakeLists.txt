@@ -8,6 +8,7 @@ target_sources(ember_lynx PRIVATE
     eng/Engine.cpp
     eng/entry_point.cpp
     ui/Window.cpp
+    util/Logger.cpp
 )
 
 target_include_directories(ember_lynx PUBLIC

@@ -13,12 +13,18 @@ namespace elx::eng {
             return std::unexpected{ "Engine is already initialised" };
         }
 
+        if (auto result = elx::util::Logger::init(config.logger); !result) {
+            return std::unexpected{ std::move(result.error()) };
+        }
+
         auto window = elx::ui::Window::create(config.window);
         if (!window) {
+            elx::util::Logger::shutdown();
             return std::unexpected{ std::move(window.error()) };
         }
 
         s_instance_ = std::unique_ptr<Engine>{ new Engine{ std::move(*window) } };
+        elx::info("EmberLynx engine initialised.");
         return {};
     }
 
@@ -29,6 +35,7 @@ namespace elx::eng {
 
     void Engine::shutdown() noexcept {
         s_instance_.reset();
+        elx::util::Logger::shutdown();
     }
 
     bool Engine::is_initialised() noexcept {
