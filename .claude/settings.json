@@ -5,8 +5,7 @@
                 "matcher": "Write|Edit",
                 "hooks": [{
                     "type": "command",
-                    "command": "${CLAUDE_PROJECT_DIR}/format.sh",
-                    "args": []
+                    "command": "cd \"${CLAUDE_PROJECT_DIR}\" && ./format.sh"
                 }]
             }
         ]
