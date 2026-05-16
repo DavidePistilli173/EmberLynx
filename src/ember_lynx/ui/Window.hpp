@@ -45,6 +45,12 @@ namespace elx::ui {
         /// @brief Process all pending OS events.
         void poll_events() const noexcept;
 
+        /// @brief Swap front and back buffers, committing the current frame to the compositor.
+        ///
+        /// Must be called once per frame until a dedicated renderer (e.g. bgfx) takes over
+        /// surface commits.  Without this, Wayland compositors never map the surface.
+        void present() const noexcept;
+
         /// @brief Window width in screen coordinates.
         [[nodiscard]] int32_t width() const noexcept;
 

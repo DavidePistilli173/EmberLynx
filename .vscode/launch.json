@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug hello_world",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/hello_world",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build Debug"
+        }
+    ]
+}

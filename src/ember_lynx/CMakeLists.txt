@@ -3,6 +3,7 @@ add_library(ember_lynx STATIC)
 add_subdirectory(deps)
 
 target_sources(ember_lynx PRIVATE
+    engine/App.cpp
     engine/Engine.cpp
     engine/entry_point.cpp
     ui/Window.cpp

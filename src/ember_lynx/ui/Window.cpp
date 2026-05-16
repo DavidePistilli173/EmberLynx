@@ -2,9 +2,13 @@
 
 #include <GLFW/glfw3.h>
 #include <atomic>
+#include <cstdlib>
 #include <format>
 
 namespace {
+
+    // Read once before main() — environment is stable and no threads exist yet.
+    bool const s_is_wayland{ std::getenv("WAYLAND_DISPLAY") != nullptr }; // NOLINT(concurrency-mt-unsafe)
 
     std::atomic<int> s_glfw_ref_count{ 0 };
 
@@ -12,6 +16,11 @@ namespace {
     /// @return false if glfwInit() fails.
     [[nodiscard]] bool glfw_acquire() noexcept {
         if (s_glfw_ref_count.fetch_add(1, std::memory_order_acq_rel) == 0) {
+            // Prevent GLFW from auto-selecting X11 on a Wayland session where
+            // Xwayland may not be running (e.g. Niri).
+            if (s_is_wayland) {
+                glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
+            }
             return glfwInit() == GLFW_TRUE;
         }
         return true;
@@ -59,9 +68,6 @@ namespace elx::ui {
             return std::unexpected{ "Failed to initialise GLFW" };
         }
 
-        // Disable any built-in graphics API context — bgfx manages its own.
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-
         GLFWwindow* handle = glfwCreateWindow(config.width, config.height, std::string{ config.title }.c_str(), nullptr, nullptr);
 
         if (handle == nullptr) {
@@ -78,6 +84,11 @@ namespace elx::ui {
 
     void Window::poll_events() const noexcept {
         glfwPollEvents();
+    }
+
+    void Window::present() const noexcept {
+        glfwMakeContextCurrent(handle_);
+        glfwSwapBuffers(handle_);
     }
 
     int32_t Window::width() const noexcept {
